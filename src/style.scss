@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Rubik", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: lightgray;
+}
+.search-bar {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  form {
+    display: flex;
+  }
+  input {
+    padding: 15px;
+    outline: none;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border: none;
+    font-size: 18px;
+    width: 400px;
+    cursor: pointer;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: black;
+    border: none;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+}
+
+h1 {
+  font-weight: 700;
+  color: white;
+  margin-block: 25px;
+}
