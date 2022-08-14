@@ -1,5 +1,7 @@
 import { createContext, useReducer } from "react";
+import IpMap from "./Components/IpMap";
 import SearchBar from "./Components/SearchBar";
+import "../node_modules/leaflet/dist/leaflet.css";
 
 export const AppContext = createContext();
 function App() {
@@ -22,6 +24,7 @@ function App() {
     <AppContext.Provider value={{ state, dispatch }}>
       <main>
         <SearchBar />
+        <IpMap />
       </main>
     </AppContext.Provider>
   );
