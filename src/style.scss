@@ -13,6 +13,10 @@ h1 {
   font-weight: 700;
   color: white;
   margin-block: 25px;
+  @media (max-width: 576px) {
+    font-size: 22px;
+    margin-block: 15px;
+  }
 }
 .search-bar {
   height: 250px;
@@ -32,6 +36,9 @@ h1 {
     font-size: 18px;
     width: 400px;
     cursor: pointer;
+    @media (max-width: 576px) {
+      width: 280px;
+    }
   }
   button {
     padding: 10px 20px;
@@ -39,25 +46,45 @@ h1 {
     border: none;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
+    cursor: pointer;
   }
 }
 .card {
-  width: 70%;
   display: flex;
-  // justify-content: space-between;
   gap: 35px;
   position: absolute;
-  bottom: -40px;
+  bottom: -25%;
   padding: 35px 20px;
   background: white;
   border-radius: 10px;
   box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.3);
   z-index: 1;
+  @media (max-width: 991px) {
+    flex-wrap: wrap;
+    width: 80%;
+    bottom: -40%;
+  }
+  @media (max-width: 576px) {
+    flex-direction: column;
+    padding: 10px;
+    bottom: -43%;
+    gap: 10px;
+  }
 }
 .card-item {
   border-right: 1px solid #d9d9d9;
-  padding-right: 65px;
+  padding-right: 10px;
+  width: 100%;
   &:last-child {
+    border-right: none;
+  }
+  @media (max-width: 991px) {
+    flex-basis: 45%;
+    &:nth-child(2) {
+      border-right: none;
+    }
+  }
+  @media (max-width: 576px) {
     border-right: none;
   }
 }

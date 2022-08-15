@@ -8,33 +8,64 @@ import Card from "./Card";
 
 const SearchBar = () => {
   const [ipAddress, setIpAddress] = useState("");
+  const [submitCount, setSubmitCount] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
   const { state, dispatch } = useContext(AppContext);
   const API_KEY = "83b75bba633141818ab244d251a3a390";
+  const ipRegex =
+    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-  // useEffect(() => {
-  //   async function getVisitorData() {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`
-  //       );
-  //       if (response) {
-  //         console.log("response", response.data);
-  //         dispatch({ type: "getIpData", payload: response.data });
-  //         console.log("state", state);
-  //       }
-  //     } catch (error) {
-  //       console.log("error", error);
-  //     }
-  //   }
-  //   getVisitorData();
-  // }, []);
+  useEffect(() => {
+    async function getVisitorData() {
+      try {
+        const response = await axios.get(
+          `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`
+        );
+        if (response) {
+          console.log("response", response.data);
+          dispatch({ type: "getdata", payload: response.data });
+          console.log("state", state);
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+    getVisitorData();
+  }, []);
+  useEffect(() => {
+    if (submitCount) {
+      async function getNewIpAddress() {
+        try {
+          const response = await axios.get(
+            `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=${ipAddress}`
+          );
+          if (response) {
+            console.log("response", response.data);
+            dispatch({ type: "getdata", payload: response.data });
+          }
+        } catch (error) {
+          console.log("error", error);
+        }
+      }
+      getNewIpAddress();
+    }
+  }, [submitCount]);
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (ipRegex.test(ipAddress)) {
+      setSubmitCount((submitCount) => submitCount + 1);
+      setErrorMessage("");
+    } else {
+      setErrorMessage("Enter valid IP address");
+    }
+  }
   return (
     <section
       className="search-bar"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <h1>IP Address Tracker</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Search for any IP address"
@@ -45,6 +76,9 @@ const SearchBar = () => {
           <img src={arrow} alt="" />
         </button>
       </form>
+      {ipAddress && errorMessage && (
+        <p style={{ color: "red" }}>{errorMessage}</p>
+      )}
       <Card />
     </section>
   );

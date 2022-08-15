@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "../App";
 
 const Card = () => {
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   return (
     <div className="card">
       <div className="card-item">
@@ -10,8 +10,7 @@ const Card = () => {
           <p>IP Address</p>
         </div>
         <div className="card-content">
-          {/* <p>{state.ipData.ip}</p> */}
-          <p>Random Text</p>
+          {state.data && <p>{state.data.ip}</p>}
         </div>
       </div>
       <div className="card-item">
@@ -19,8 +18,9 @@ const Card = () => {
           <p>Location</p>
         </div>
         <div className="card-content">
-          {/* <p>{`${state.ipData.city}, ${state.ipData.country_name}`}</p> */}
-          <p>Random Text</p>
+          {state.data && (
+            <p>{`${state.data.city}, ${state.data.country_name}`}</p>
+          )}
         </div>
       </div>
       <div className="card-item">
@@ -28,8 +28,7 @@ const Card = () => {
           <p>Time Zone</p>
         </div>
         <div className="card-content">
-          {/* <p>{state.ipData.time_zone.name}</p> */}
-          <p>Random Text</p>
+          {state.data && <p>{state.data.time_zone.name}</p>}
         </div>
       </div>
       <div className="card-item">
@@ -37,8 +36,7 @@ const Card = () => {
           <p>ISP</p>
         </div>
         <div className="card-content">
-          {/* <p>{state.ipData.isp}</p> */}
-          <p>Random Text</p>
+          {state.data && <p>{state.data.isp}</p>}
         </div>
       </div>
     </div>

@@ -6,14 +6,14 @@ import "../node_modules/leaflet/dist/leaflet.css";
 export const AppContext = createContext();
 function App() {
   const initialState = {
-    ipData: "",
+    data: "",
   };
   const reducer = (state, action) => {
     switch (action.type) {
-      case "getIpData":
+      case "getdata":
         return {
           ...state,
-          ipData: action.payload,
+          data: action.payload,
         };
       default:
         throw new Error("Action Type not defined");

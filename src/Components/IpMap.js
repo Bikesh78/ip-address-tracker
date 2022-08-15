@@ -1,12 +1,26 @@
-import React, { useContext } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import React, { useContext, useEffect } from "react";
+import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
 import { AppContext } from "../App";
 
 const IpMap = () => {
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
+
+  // Function to move the map to the center of the markers after the map is loaded with new data
+  function SetView({ center, zoom }) {
+    const map = useMap();
+
+    useEffect(() => {
+      map.setView(center, zoom);
+    });
+
+    return null;
+  }
+  if (!state.data) {
+    return <p>Loading</p>;
+  }
   return (
     <MapContainer
-      center={[27.67387, 85.31441]}
+      center={[state.data.latitude, state.data.longitude]}
       zoom={13}
       scrollWheelZoom={true}
     >
@@ -14,11 +28,8 @@ const IpMap = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[27.67387, 85.31441]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      <Marker position={[state.data.latitude, state.data.longitude]}></Marker>
+      <SetView center={[state.data.latitude, state.data.longitude]} zoom={13} />
     </MapContainer>
   );
 };
