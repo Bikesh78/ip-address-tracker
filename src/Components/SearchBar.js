@@ -11,7 +11,6 @@ const SearchBar = () => {
   const [submitCount, setSubmitCount] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const { state, dispatch } = useContext(AppContext);
-  const API_KEY = "83b75bba633141818ab244d251a3a390";
   const ipRegex =
     /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
@@ -19,7 +18,7 @@ const SearchBar = () => {
     async function getVisitorData() {
       try {
         const response = await axios.get(
-          `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`
+          `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_KEY}`
         );
         if (response) {
           console.log("response", response.data);
@@ -37,7 +36,7 @@ const SearchBar = () => {
       async function getNewIpAddress() {
         try {
           const response = await axios.get(
-            `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=${ipAddress}`
+            `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_KEY}&domain=${ipAddress}`
           );
           if (response) {
             console.log("response", response.data);
