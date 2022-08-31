@@ -16,7 +16,7 @@ const IpMap = () => {
     return null;
   }
   if (!state.data) {
-    return <p>Loading</p>;
+    return <p style={{ color: "white" }}>Loading</p>;
   }
   return (
     <>

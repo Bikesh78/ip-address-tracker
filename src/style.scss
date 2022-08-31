@@ -53,7 +53,7 @@ h1 {
   display: flex;
   gap: 35px;
   position: absolute;
-  bottom: -25%;
+  bottom: -32%;
   padding: 35px 20px;
   background: white;
   border-radius: 10px;
@@ -62,12 +62,12 @@ h1 {
   @media (max-width: 991px) {
     flex-wrap: wrap;
     width: 80%;
-    bottom: -40%;
+    bottom: -48%;
   }
   @media (max-width: 576px) {
     flex-direction: column;
     padding: 10px;
-    bottom: -43%;
+    bottom: -51%;
     gap: 10px;
   }
 }
