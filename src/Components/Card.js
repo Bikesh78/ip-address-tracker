@@ -18,8 +18,10 @@ const Card = () => {
           <p>Location</p>
         </div>
         <div className="card-content">
-          {state.data && (
-            <p>{`${state.data.city}, ${state.data.country_name}`}</p>
+          {state.data.location && (
+            <>
+              <p>{`${state.data.location.city}, ${state.data.location.country}`}</p>
+            </>
           )}
         </div>
       </div>
@@ -28,7 +30,7 @@ const Card = () => {
           <p>Time Zone</p>
         </div>
         <div className="card-content">
-          {state.data && <p>{state.data.time_zone.name}</p>}
+          {state.data && <p>{state.data.location.timezone}</p>}
         </div>
       </div>
       <div className="card-item">

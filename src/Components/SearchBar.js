@@ -13,17 +13,15 @@ const SearchBar = () => {
   const { state, dispatch } = useContext(AppContext);
   const ipRegex =
     /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-
+  const websiteRegex = /^(?:(ftp|http|https):\/\/)?(?:[\w-]+\.)+[a-z]{2,6}$/;
   useEffect(() => {
     async function getVisitorData() {
       try {
         const response = await axios.get(
-          `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.REACT_APP_KEY}`
+          `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_KEY}`
         );
         if (response) {
-          console.log("response", response.data);
           dispatch({ type: "getdata", payload: response.data });
-          console.log("state", state);
         }
       } catch (error) {
         console.log("error", error);
@@ -36,10 +34,9 @@ const SearchBar = () => {
       async function getNewIpAddress() {
         try {
           const response = await axios.get(
-            `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.REACT_APP_KEY}&ip=${ipAddress}`
+            `https://geo.ipify.org/api/v2/country,city?apiKey=${process.env.REACT_APP_KEY}&domain=${ipAddress}`
           );
           if (response) {
-            console.log("response", response.data);
             dispatch({ type: "getdata", payload: response.data });
           }
         } catch (error) {
@@ -51,11 +48,11 @@ const SearchBar = () => {
   }, [submitCount]);
   function handleSubmit(e) {
     e.preventDefault();
-    if (ipRegex.test(ipAddress)) {
+    if (ipRegex.test(ipAddress) || websiteRegex.test(ipAddress)) {
       setSubmitCount((submitCount) => submitCount + 1);
       setErrorMessage("");
     } else {
-      setErrorMessage("Enter valid IP address");
+      setErrorMessage("Enter valid IP address or domain name");
     }
   }
   return (
@@ -67,7 +64,7 @@ const SearchBar = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Search for any IP address"
+          placeholder="Search for any IP address or domain"
           value={ipAddress}
           onChange={(e) => setIpAddress(e.target.value)}
         />
