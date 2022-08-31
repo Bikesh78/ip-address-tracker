@@ -19,28 +19,25 @@ const IpMap = () => {
     return <p>Loading</p>;
   }
   return (
-    // <MapContainer
-    //   center={[state.data.latitude, state.data.longitude]}
-    //   zoom={13}
-    //   scrollWheelZoom={true}
-    // >
-    <MapContainer
-      center={[state.data.location.lat, state.data.loacation.lng]}
-      zoom={13}
-      scrollWheelZoom={true}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <Marker
-        position={[state.data.location.lat, state.data.location.lng]}
-      ></Marker>
-      <SetView
+    <>
+      <MapContainer
         center={[state.data.location.lat, state.data.location.lng]}
         zoom={13}
-      />
-    </MapContainer>
+        scrollWheelZoom={true}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker
+          position={[state.data.location.lat, state.data.location.lng]}
+        ></Marker>
+        <SetView
+          center={[state.data.location.lat, state.data.location.lng]}
+          zoom={13}
+        />
+      </MapContainer>
+    </>
   );
 };
 
